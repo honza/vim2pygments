@@ -35,6 +35,8 @@ can use. Next step is to download Pygments:
 
     $ hg clone http://dev.pocoo.org/hg/pygments-main pygments
 
+If it is already installed via easy_install, check `/Library/Python/2.X/site-packages/`
+
 And then you will install your new theme:
 
     $ cd pygments

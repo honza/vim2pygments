@@ -16,7 +16,7 @@
 import sys
 import re
 from os import path
-from cStringIO import StringIO
+from io import StringIO
 
 split_re = re.compile(r'(?<!\\)\s+')
 
@@ -767,7 +767,7 @@ TOKENS = {
 }
 
 TOKEN_TYPES = set()
-for token in TOKENS.itervalues():
+for token in TOKENS.values():
     if not isinstance(token, tuple):
         token = (token,)
     for token in token:
@@ -838,7 +838,7 @@ def find_colors(code):
         colors['Normal']['bgcolor'] = bg_color
 
     color_map = {}
-    for token, styles in colors.iteritems():
+    for token, styles in colors.items():
         if token in TOKENS:
             tmp = []
             if styles.get('noinherit'):
@@ -882,7 +882,7 @@ class StyleWriter(object):
         self.write_header(out)
         default_token, tokens = find_colors(self.code)
         tokens = tokens.items()
-        tokens.sort(lambda a, b: cmp(len(a[0]), len(a[1])))
+        # tokens.sort(lambda a, b: cmp(len(a[0]), len(a[1]))) # I have no idea how to fix this
         bg_color = [x[3:] for x in default_token.split() if x.startswith('bg:')]
         if bg_color:
             out.write('    background_color = %r\n' % bg_color[0])
@@ -894,7 +894,7 @@ class StyleWriter(object):
         out.write('    }')
 
     def __repr__(self):
-        out = StringIO()
+        out = io.StringIO()
         self.write_style(out)
         return out.getvalue()
 
@@ -903,14 +903,14 @@ def convert(filename, stream=None):
     name = path.basename(filename)
     if name.endswith('.vim'):
         name = name[:-4]
-    f = file(filename)
+    f = open(filename)
     code = f.read()
     f.close()
     writer = StyleWriter(code, name)
     if stream is not None:
         out = stream
     else:
-        out = StringIO()
+        out = io.StringIO()
     writer.write(out)
     if stream is None:
         return out.getvalue()
@@ -918,14 +918,14 @@ def convert(filename, stream=None):
 
 def main():
     if len(sys.argv) != 2 or sys.argv[1] in ('-h', '--help'):
-        print 'Usage: %s <filename.vim>' % sys.argv[0]
+        print('Usage: %s <filename.vim>' % sys.argv[0])
         return 2
     if sys.argv[1] in ('-v', '--version'):
-        print '%s %s' % (SCRIPT_NAME, SCRIPT_VERSION)
+        print( '%s %s' % (SCRIPT_NAME, SCRIPT_VERSION) )
         return
     filename = sys.argv[1]
     if not (path.exists(filename) and path.isfile(filename)):
-        print 'Error: %s not found' % filename
+        print('Error: %s not found' % filename)
         return 1
     convert(filename, sys.stdout)
     sys.stdout.write('\n')

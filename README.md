@@ -6,8 +6,8 @@ Convert vim color schemes to [pygments][pygments] styles.
 Usage - TL;DR
 -------------
 
-    $ python vim2pygments.py molokai.vim > molokai.py
-    $ hg clone http://dev.pocoo.org/hg/pygments-main pygments
+    $ python vimpygments.py molokai.vim > molokai.py
+    $ hg clone http://bitbucket.org/birkenfeld/pygments-main pygments
     $ cd pygments
     $ cp ../molokai.py pygments/styles/molokai.py
     $ ./pygmentize -S molokai -f html -a .highlight > molokai.css
@@ -28,12 +28,12 @@ I found a script that will turn a vim colorscheme into a Pygments theme.  It
 didn't work perfectly out of the box so I patched it.  Copy your vim
 colorscheme to the same directory as the script and run it like so:
 
-    $ python vim2pygments.py molokai.vim > molokai.py
+    $ python vimpygments.py molokai.vim > molokai.py
 
 This will produce a Python file containing a simple style class that Pygments
 can use. Next step is to download Pygments:
 
-    $ hg clone http://dev.pocoo.org/hg/pygments-main pygments
+    $ hg clone http://bitbucket.org/birkenfeld/pygments-main pygments
 
 And then you will install your new theme:
 

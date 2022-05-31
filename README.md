@@ -63,4 +63,4 @@ License
 BSD licensed
 
 [pygments]: http://pygments.org/
-[post]: http://honza.ca/2011/02/how-to-convert-vim-colorschemes-to-pygments-themes
+[post]: [http://honza.ca/2011/02/how-to-convert-vim-colorschemes-to-pygments-themes](http://honza.ca/2011/02/how-to-convert-vim-colorschemes-to-pygments-themes)
